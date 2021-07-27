@@ -4,6 +4,7 @@ from numpy import add
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 import pandas as pd
 import time
 
@@ -29,10 +30,21 @@ material_items = material_list.find_elements_by_class_name('altrow')
 hrefs = []
 
 # looping over pages to extract all information
-page_number = range(1, 4)
+#page = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_drpPageSelect1"]')
+#page_number = page.find_elements_by_tag_name('option')
+#print(page_number)
 
-for page in page_number:
-    
+select = Select(driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_drpPageSelect1"]'))
+print(select.options)
+page_number = [o.text for o in select.options] # these are string-s
+for i in page_number:
+    select = Select(driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_drpPageSelect1"]'))
+    print(select.options)
+    select.select_by_visible_text(i)
+
+    material_list = driver.find_element_by_xpath('//*[@id="tblResults"]/tbody')
+    material_items = material_list.find_elements_by_class_name('altrow')
+
     for item in material_items:
             link = item.find_element_by_xpath('.//a').get_attribute('href')
             hrefs.append(link)
@@ -51,15 +63,14 @@ for page in page_number:
             time.sleep(1)
         except NoSuchElementException:
             pass
+
     
     # click the metal hyperlink to go to the first page and then click next page. 
     # This is used since there is no next page button on the page containing info on the property of the materials.
     metal_category_button = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_ucDataSheet1_trMatlGroups"]/td[2]/a[1]')
     metal_category_button.click()
-    next_page_button = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_lnkNextPage"]')
-    next_page_button.click()
-
-
+    #next_page_button = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_lnkNextPage"]')
+    #next_page_button.click()
 
 
 
