@@ -60,15 +60,17 @@ for i in page_number:
             material_features['Atomic_Number'].append(atomic_number.text)
             material_features['Electronegativity'].append(electronegativity.text)
             material_features['Boiling_Point'].append(boiling_point.text)
-            time.sleep(1)
+            time.sleep(2)
         except NoSuchElementException:
             pass
 
     
     # click the metal hyperlink to go to the first page and then click next page. 
     # This is used since there is no next page button on the page containing info on the property of the materials.
+    time.sleep(10)
     metal_category_button = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_ucDataSheet1_trMatlGroups"]/td[2]/a[1]')
     metal_category_button.click()
+    
     #next_page_button = driver.find_element_by_xpath('//*[@id="ctl00_ContentMain_UcSearchResults1_lnkNextPage"]')
     #next_page_button.click()
 
@@ -90,5 +92,6 @@ for href in hrefs:
 
 # %%
 #%%
-print(material_features)
+material_data = pd.DataFrame(material_features)
+print(material_data)
 # %%
