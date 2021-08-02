@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 import time
 
-def get_compounds(n=2):
+def get_compounds(n=30):
 
     '''
     Extracts information on the attributes of materials
@@ -40,6 +40,7 @@ def get_compounds(n=2):
     table = driver.find_element_by_xpath('//*[@id="ResultTable"]/tbody')
     compound_list = table.find_elements_by_xpath('.//tr')[1:]
     
+    print('Extracting compounds data ...')
     for _ in range(n):
         
         next_page_button = driver.find_element_by_xpath('//button[@class="next"]')
@@ -60,8 +61,9 @@ def get_compounds(n=2):
         
         next_page_button.click()
         time.sleep(10)
-    driver.close()
+
     return compound_features
+
 
 def convert_to_DF(name='raw_compound_features'):
     '''
@@ -94,21 +96,8 @@ def import_to_SQL(name='compounds_dataset'):
 
     compounds_data.to_sql(name, engine, if_exists='replace')
 
+driver.quit()
 
-
-
-compounds_data = convert_to_DF()
-
-#%%
-import_to_SQL()
-
-
-
-
-
-
-
-
-
-
-# %%
+if __name__ == '__main__':
+    compounds_data = convert_to_DF()
+    compounds_data.to_csv('compounds_data')
