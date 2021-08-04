@@ -1,4 +1,3 @@
-#%%
 from numpy import add
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -96,8 +95,8 @@ def import_to_SQL(name='compounds_dataset'):
 
     compounds_data.to_sql(name, engine, if_exists='replace')
 
-driver.quit()
+
 
 if __name__ == '__main__':
     compounds_data = convert_to_DF()
-    compounds_data.to_csv('compounds_data')
+    compounds_data.to_csv('compounds_data.csv')
