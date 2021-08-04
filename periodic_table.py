@@ -1,4 +1,3 @@
-#%%
 from numpy import add
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -12,7 +11,7 @@ from OQMD_Database_scraper import import_to_SQL
 import pandas as pd
 import time
 
-def get_elements():
+def get_elements(n=60):
     '''
     Extracts information on the attributes of elements 
     from the periodic table where these features are:
@@ -35,7 +34,7 @@ def get_elements():
     element_list = driver.find_elements_by_xpath("//li[@class='p-md-bottom print-avoid-break-inside print-padding-top']")
     hrefs = []
 
-    for item in element_list[0:60]:
+    for item in element_list[0:n]:
         link = item.find_element_by_xpath('.//a').get_attribute('href')
         hrefs.append(link)
 
@@ -83,4 +82,4 @@ if __name__ == '__main__':
 #import_to_SQL(name='elements_dataset')      
 
 
-# %%
+
