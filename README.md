@@ -5,9 +5,9 @@
 
 ## Abstract
 
-It has been shown literature that there is a predictive relationship
-between known discrete scalar descriptors associated with crystal and electronic structure and observed properties of materials.
-However, the property space of these materials is of high dimensionality which highlights the complex nature of predictive models at the fundamental level. Additionally, the elemental descriptors at this level have a certain degree of co-dependence which makes prediction even more complicated. A possible way to address is by using data reduction methods which reduces the dimensionality of the property space. In this project, a dataset of elements and some of their corresponding elemental descriptors have been collected using webscraping techniques. The elemental descriptors/features were limited to five since it has been shown that it is possible to predict band gap energies using only five (5) elemental descriptors.
+It has been shown that there is a predictive relationship
+between 'known discrete scalar descriptors associated with crystal and electronic structure and observed properties of materials'.
+However, the property space of these materials is of high dimensionality which highlights the complex nature of predictive models at the fundamental level. Additionally, the elemental descriptors at this level have a certain degree of co-dependence which makes prediction even more complicated. It has been demonstrated using data reduction methods that the property space of observable material properties can be diminished.  In this project, a dataset of elements and some of their corresponding elemental descriptors have been collected using webscraping techniques. The elemental descriptors/features were limited to five since it has been shown that it is possible to predict band gap energies using only five (5) elemental descriptors.
 
 
 
@@ -16,7 +16,7 @@ However, the property space of these materials is of high dimensionality which h
 
 Recent advances in material science and engineering have been focused on 
 producing rational design rules and principles for material fabrication.
-The development of these design rules have huge implications for various such as fields opto-electronics, photonics [add more examples] etc. In this regard, considerable attempts have been made to utilize already accumulated datasets to create models that facilitate the prediction of various material properties using machine learning techniques. Despite the growing interests in predictive models using machine learning, there is a dearth of machine-learning-based models to predict band gap energies. 
+The development of these design rules have huge implications for various fields such as crystal engineering, opto-electronics and photonics . In this regard, considerable attempts have been made to utilize already accumulated datasets to create models that facilitate the prediction of various material properties using machine learning techniques. Despite recent advances in this field, there is a dearth of machine-learning-based models to predict band gap energies. 
 
 ## Methodology
 
@@ -25,12 +25,12 @@ Implementing python libraries such as selenium and pandas, a database of element
 * Open the desired website containing information on the elements or compound.
 
 * Extract specific information on the attributes of the element or compound.
-    * To do this, the functions *get_elements()* and *get_compounds()* were utilized to extract elements and compounds data respectively.
-    * Specifically, *get_compounds()* depends on the parameter *n* which is
-    an integer that defines the number of pages to extract data from.
+    * To do this, the python codes ```OQMD_Database_scraper.py``` and ```periodic_table.py``` utilized. These codes contain the functions ```get_elements()``` and ```get_compounds(n)```  that carry out the extraction of elements and compounds data respectively.
+    * Specifically, ```get_compounds(n)``` depends on the parameter `n` which is
+    an integer that defines the number of pages to extract data from. 
 
 * Convert the result into a dataframe for further processing
-    * Using Pandas, the extracted data was stored as a data frame using the *convert_to_DF()* function which was saved as a csv file.
+    * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which was saved as a csv file.
 
 * Clean the data
 
@@ -54,16 +54,13 @@ Specifically, the main python library used for the extraction of data was seleni
 
 2. Run the code that extracts data from the periodic table
 
-    ```$ python scraper_v3.py```
+    ```$ python periodic_table.py```
 
 3. The entire code be ran from the executable shell script file
 
     ```$ sh execute.sh```
 
 
-## Discussion & Results
-
-WSL Problems --- code cannot connect to Postgre since it using a dynamic local host
 
 
 
