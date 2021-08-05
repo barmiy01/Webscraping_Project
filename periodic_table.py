@@ -23,6 +23,11 @@ def get_elements(n=60):
     (3) Electronegativity
     (4) Boiling Point
 
+    Parameters
+    ----------
+    n : int
+        Defines the number of elements to extract data from
+
     '''
 
     URL = f"https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
