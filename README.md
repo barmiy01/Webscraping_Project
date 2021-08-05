@@ -22,8 +22,8 @@ Implementing python libraries such as selenium and pandas, a database of element
 
 * Extract specific information on the attributes of the element or compound.
     * To do this, the python codes ```OQMD_Database_scraper.py``` and ```periodic_table.py``` utilized. These codes contain the functions ```get_elements()``` and ```get_compounds(n)```  that carry out the extraction of elements and compounds data respectively.
-    * Specifically, ```get_compounds(n)``` depends on the parameter `n` which is
-            an integer that defines the number of pages to extract data from.
+    * Specifically, ```get_compounds(n)``` and ```get_elements(n)``` depends on the parameter `n`. For ```get_compounds```, `n` is 
+    an integer that defines the number of pages to extract data from while `n` in ```get_elements(n)``` defines the number of elements to extract data from. In this case data from 60 elements where extracted.
 
 * Convert the result into a dataframe for further processing
         * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which was saved as a csv file.
