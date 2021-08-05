@@ -26,7 +26,7 @@ Implementing python libraries such as selenium and pandas, a database of element
     an integer that defines the number of pages to extract data from while `n` in ```get_elements(n)``` defines the number of elements to extract data from. In this case data from 60 elements where extracted.
 
 * Convert the result into a dataframe for further processing
-        * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which was saved as a csv file.
+    * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which was saved as a csv file.
 
 * Clean the data
 
