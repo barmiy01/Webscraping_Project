@@ -15,21 +15,38 @@ from generic_scraper import Scraper
 
 class CompoundScraper(Scraper):
     '''
-    [insert Description]
+    A class that extracts information on the attributes of materials
+    where these features are:
+
+    Features
+    --------
+
+    (1) Name 
+    (2) Space Group
+    (3) Volume
+    (4) Band Gap
+
 
     Parameters
     ---------
-    n : int
-    root : str
-    list : list
+    n       : int
+              Defines the number of pages to extract data from
+    
+    root    : str
+              Defines the URL to extract data from
+    
+    list    : list
+              This initiates an empty list to append all necessary links
+    
     features: dict
+              A dictionary that defines the output for extracted target features
 
     Attributes
     ----------
-    n
-    root
-    list
-    features
+    (1) n
+    (2) root
+    (3) list
+    (4) features
 
     '''
 
@@ -37,7 +54,8 @@ class CompoundScraper(Scraper):
         super().__init__(**kwargs)
         
 
-    def get_to_URL(self):
+    def get_to_URL(self) -> None:
+        
         '''
         This function opens the target URL prior to extraction.
         It depends on the parameter 'root'.
@@ -48,9 +66,10 @@ class CompoundScraper(Scraper):
         search_button = self.driver.find_element_by_xpath('//*[@id="submit-id-search"]')
         search_button.click()
         
-    def load_data(self):
+    def load_data(self) -> None:
         '''
-        This function loads all the WebElements pending extraction.
+        This function loads all 
+        the WebElements pending extraction.
 
         '''
         table_xpath = '//*[@id="ResultTable"]/tbody'
@@ -61,9 +80,10 @@ class CompoundScraper(Scraper):
             self.list.append(i)
         
 
-    def extract_data(self):
+    def extract_data(self) -> None:
         '''
-        This function extracts the target data and stores it in a dictionary
+        This function extracts the target data 
+        and stores it in a dictionary
 
         '''
         print('Extracting compounds data ...')
@@ -72,6 +92,7 @@ class CompoundScraper(Scraper):
         self.get_to_URL()
 
         for j in range(self.n):
+            
             print(f"Extracting from Page_{j}")
             next_page_button = self.driver.find_element_by_xpath('//button[@class="next"]')
             
@@ -91,17 +112,17 @@ class CompoundScraper(Scraper):
                 time.sleep(1)
             
             #next_page_button.click()
-            # self.driver.refresh()
+            #self.driver.refresh()
             #time.sleep(10)
         print('Extraction Complete ... ')
 
 
         
-#%%
-root = "http://oqmd.org/api/search#apisearchresult"
-features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}
-scraper = CompoundScraper(n=1, root=root, list=[], features=features)
-scraper.extract_data()
+if __name__ == '__main__':
+    root = "http://oqmd.org/api/search#apisearchresult"
+    features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}
+    scraper = CompoundScraper(n=1, root=root, list=[], features=features)
+    scraper.extract_data()
 
 
 
