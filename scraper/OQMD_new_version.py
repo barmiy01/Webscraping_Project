@@ -1,8 +1,8 @@
-#%%
 from numpy import add
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -15,8 +15,7 @@ from generic_scraper import Scraper
 
 class CompoundScraper(Scraper):
     '''
-    A class that extracts information on the attributes of materials
-    where these features are:
+    This class is used to represent a compound scraper.
 
     Features
     --------
@@ -28,7 +27,7 @@ class CompoundScraper(Scraper):
 
 
     Parameters
-    ---------
+    ----------
     n       : int
               Defines the number of pages to extract data from
     
@@ -62,7 +61,7 @@ class CompoundScraper(Scraper):
 
         '''
 
-        self.driver.get(root)
+        self.driver.get(self.root)
         search_button = self.driver.find_element_by_xpath('//*[@id="submit-id-search"]')
         search_button.click()
         
@@ -78,11 +77,13 @@ class CompoundScraper(Scraper):
         compound_list = table.find_elements_by_xpath('.//tr')[1:]
         for i in compound_list:
             self.list.append(i)
-        
+
+
+
 
     def extract_data(self) -> None:
         '''
-        This function extracts the target data 
+        This function extracts the target compound data 
         and stores it in a dictionary
 
         '''
@@ -101,28 +102,49 @@ class CompoundScraper(Scraper):
             self.load_data()    
 
             for item in self.list:
-                name = item.find_element_by_xpath('.//td[@width="60"]')
-                spacegroup = item.find_elements_by_xpath('.//td[@width="50"]')[3]
-                volume = item.find_elements_by_xpath('.//td[@width="80"]')[1]
-                band_gap = item.find_elements_by_xpath('.//td[@width="50"]')[5]
-                self.features['Name'].append(name.text)
-                self.features['Spacegroup'].append(spacegroup.text)
-                self.features['Volume'].append(volume.text)
-                self.features['Band_gap'].append(band_gap.text)
-                time.sleep(1)
+                max_attempts = 2
+                while True:
+                    name = item.find_element_by_xpath('.//td[@width="60"]')
+                    if name is not None:
+                        break
+                    else:
+                        time.sleep(0.5)
+                        max_attempts -= 1
+                    
+                    spacegroup = item.find_elements_by_xpath('.//td[@width="50"]')[3]
+                    if spacegroup is not None:
+                        break
+                    else:
+                        time.sleep(0.5)
+                        max_attempts -= 1
+
+                    volume = item.find_elements_by_xpath('.//td[@width="80"]')[1]
+                    if volume is not None:
+                        break
+                    else:
+                        time.sleep(0.5)
+                        max_attempts -= 1
+                    band_gap = item.find_elements_by_xpath('.//td[@width="50"]')[5]
+                    if band_gap is not None:
+                        break
+                    else:
+                        time.sleep(0.5)
+                        max_attempts -= 1
+
+                    self.features['Name'].append(name.text)
+                    self.features['Spacegroup'].append(spacegroup.text)
+                    self.features['Volume'].append(volume.text)
+                    self.features['Band_gap'].append(band_gap.text)
+                    time.sleep(1)
             
-            #next_page_button.click()
-            #self.driver.refresh()
-            #time.sleep(10)
+            next_page_button.click()
+            self.driver.refresh()
+            time.sleep(10)
         print('Extraction Complete ... ')
 
 
         
-if __name__ == '__main__':
-    root = "http://oqmd.org/api/search#apisearchresult"
-    features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}
-    scraper = CompoundScraper(n=1, root=root, list=[], features=features)
-    scraper.extract_data()
+
 
 
 
