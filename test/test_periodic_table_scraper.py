@@ -5,7 +5,7 @@ sys.path.append('/home/bilal/AiCourse/Webscraping_Project/scraper')
 from periodic_table_new import PeriodicTableScraper
 
 class PeriodicTableScraperTestCase(unittest.TestCase):
-    def test_extract_links(self):
+    def test_extract_links(self) -> None:
         root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
         features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
         element_scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
@@ -14,7 +14,7 @@ class PeriodicTableScraperTestCase(unittest.TestCase):
         actual_output = element_scraper.list
         self.assertCountEqual(expected_output, actual_output)
     
-    def test_extract_data(self):
+    def test_extract_data(self) -> None:
         root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
         features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
         element_scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
@@ -27,6 +27,11 @@ class PeriodicTableScraperTestCase(unittest.TestCase):
         self.assertCountEqual(expected_output, actual_output)
 
 unittest.main(argv=[''], verbosity=2, exit=False)
+
+
+
+
+
 
 
 

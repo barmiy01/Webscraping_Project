@@ -1,4 +1,3 @@
-#%%
 import sys
 import unittest
 sys.path.append('/home/bilal/AiCourse/Webscraping_Project/scraper')
@@ -41,7 +40,3 @@ unittest.main(argv=[''], verbosity=2, exit=False)
 
 
 
-
-
-
-# %%
