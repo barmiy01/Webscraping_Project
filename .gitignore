@@ -1,0 +1,9 @@
+**__init__.py
+**chromedriver:Zone.Identifier
+**clean.py
+**periodic_table_new.py
+*.sh
+**OQMD_Database_scraper.py
+**periodic_table.py 
+**__pycache__
+**.ipynb_checkpoints
