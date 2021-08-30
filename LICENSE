@@ -1,0 +1,19 @@
+{
+    "name": "Mozilla Public License 2.0",
+    "priority": 1,
+    "available": true,
+    "url": "http://opensource.org/licenses/MPL-2.0",
+    "description": "This is a lenient license used by the Mozilla Corporation that allows you a variety of explicit freedoms with the software so long as you keep modifications under this license and distribute the original source code alongside executables. It is a good midway license; it isn’t very strict and has only straightforward requirements.",
+    "categories": [
+        "public",
+        "software",
+        "copyleft",
+        "weak"
+    ],
+    "labels": [
+        "public",
+        "mozilla",
+        "copyleft"
+    ],
+    "key": "mpl-2"
+}
