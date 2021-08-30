@@ -5,22 +5,18 @@ import time
 
 def convert_to_DF(data_name, file_out : str, to_csv : bool):
     '''
-    Stores the extracted data as a data frame
-
-    Parameter
-    ---------
-    name : str
-           Defines the name of the variable storing the extracted data from get_compounds()
+    
 
     '''
     compounds_data = pd.DataFrame(data_name)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
-        return compounds_data
-    if to_csv == True:
-        compounds_data.to_csv(file_out + '.csv')
-    else:
-        pass
+        if to_csv == True:
+            compounds_data.to_csv(file_out + '.csv')
+        else:
+            pass
 
+        return compounds_data
+    
 def import_to_SQL(name='compounds_dataset'):
     '''
     Imports the output as an SQL database
