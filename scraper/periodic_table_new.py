@@ -1,4 +1,3 @@
-#%%
 from numpy import add
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -13,36 +12,55 @@ import time
 from generic_scraper import Scraper
 
 class PeriodicTableScraper(Scraper):
+    
     '''
-    [insert Description]
+    This class is used to represent a periodic table scraper.
+    
+    Features
+    --------
+
+    (1) Name 
+    (2) Space Group
+    (3) Volume
+    (4) Band Gap
+
 
     Parameters
     ---------
-    n : int
-    root : str
-    list : list
+    n       : int
+              Defines the number of periodic table elements to extract data from 
+    
+    root    : str
+              Defines the URL to extract data from
+    
+    list    : list
+              This initiates an empty list to append all necessary links
+    
     features: dict
+              A dictionary that defines the output for extracted target features
 
     Attributes
     ----------
-    n
-    root
-    list
-    features
-
+    (1) n
+    (2) root
+    (3) list
+    (4) features
+    
     '''
+    
     def __init__(self, **kwargs):
          super().__init__(**kwargs)
 
-    def extract_links(self):
+    def extract_links(self) -> None :
+        
         '''
-        Extracts all urls to specific element webpage 
+        Extracts all urls for each periodic table element 
         and stores them in a list.
 
         '''
         print(f" --- Extracting elemental URLs ---")
         
-        self.driver.get(root)
+        self.driver.get(self.root)
         element_list = self.driver.find_elements_by_xpath("//li[@class='p-md-bottom print-avoid-break-inside print-padding-top']")
         for item in element_list[0:self.n]:
                 link = item.find_element_by_xpath('.//a').get_attribute('href')
@@ -51,11 +69,11 @@ class PeriodicTableScraper(Scraper):
         print(f"... Done")
 
 
-    def extract_data(self):
+    def extract_data(self, to_DF=False) -> None :
+        
         '''
-        For every extracted link in the list, 
-        this function extracts the necessary data
-        as specified in the parameter 'features'.
+        Extracts information on specified features of 
+        elements from the periodic table.
 
         '''
         
@@ -82,22 +100,23 @@ class PeriodicTableScraper(Scraper):
                 self.features['Boiling_Point'].append('NA')
         print(f"--- Extracting elemental features ---")
         print(f" ... Done")
-        # if to_DF == True:
-        #     print(f"converting to DF ...")
-        #     convert_to_DF(self.element_features, 'elements_data', to_csv=True)
-        # else:
-        #     pass
+        
+        if to_DF == True:
+            print(f"converting to DF ...")
+            convert_to_DF(self.features, 'elements_data', to_csv=True)
+        else:
+            pass
 
-
-if __name__ == '__main__':
-    root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
-    features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
-    scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
-    scraper.extract_data()
-
-
+root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
+features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
+scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
+scraper.extract_data(to_DF=True)
 
 
 
 
-# %%
+
+
+
+
+
