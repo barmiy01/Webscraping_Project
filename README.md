@@ -30,8 +30,7 @@ Implementing python libraries such as selenium and pandas, a database of element
     ```features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}```
 
      These codes contain the function ```extract_data()```  that carry out the extraction of elements and compounds data.
-    * Specifically, ```extract_data(to_DF)``` depends on to_DF which only accepts boolean values. to_DF determines whether or not the data
-    will be converted into a Data Frame.
+    * Specifically, ```extract_data(to_DF)``` depends on ```to_DF``` which only accepts boolean values. to_DF determines whether or not the data will be converted into a Data Frame.
 
 * Convert the result into a dataframe for further processing us
     * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which depends on the following variables: ```data_name```, ```file_out```, ```to_csv```.
@@ -49,27 +48,45 @@ Specifically, the main python library used for the extraction of data was seleni
 
 ## Setting up venv
 
-* Using anaconda3 set up a virtual environment (venv) while meeting necessary code requirements. All necessary requirments can be found in the file ```requirements.txt```.
+* Using anaconda3 set up a virtual environment (venv) while meeting necessary code requirements. All necessary requirements can be found in the file ```requirements.txt```. 
 
     ```source activate [env name]```
 
     ```pip install requirements.txt```
 
+# Installing and Running
+* To install this package:
+
+    ```pip install el-compX-scraper```
+
 ## Running the Project
 
-1. Run the python code that extracts data from OQMD
+1. Within python import the necessary modules:
 
-     ```$ python OQMD_new_version.py```
+    ``` 
+        import scraper
+        from scaper.OQMD_new_version import Compound_Scraper
+        from scraper.periodic_table_new import PeriodicTableScraper 
+    ```  
 
-2. Run the code that extracts data from the periodic table
+2. To instantiate a scraper object, we can implement the CompoundScraper class. Hence,
+    ```
+    root = "http://oqmd.org/api/search#apisearchresult"
+    features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}
+    scraper = CompoundScraper(n=1, root=root, list=[], features=features)
+    scraper.extract_data()
 
-    ```$ python periodic_table_new.py```
+    ```
+    Similarly for the PeriodicTableScraper,
+    ```
+    root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
+    features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
+    scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
+    scraper.extract_data(to_DF=True)
+    ```
+3. We can also example script which instantiates specific scraper objects depending on the url. Thus to execute this,
 
-3. The entire code be ran from a python script using the flags -r or --root 
-
-    ```$ python run_scraper.py -r  [insert URL]```
-
-
+    ```import scraper.example```
 
 
 
