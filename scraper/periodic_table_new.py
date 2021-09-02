@@ -7,9 +7,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from data_structure import convert_to_DF 
+from scraper.data_structure import convert_to_DF 
 import time
-from generic_scraper import Scraper
+from scraper.generic_scraper import Scraper
 
 class PeriodicTableScraper(Scraper):
     
@@ -75,6 +75,11 @@ class PeriodicTableScraper(Scraper):
         Extracts information on specified features of 
         elements from the periodic table.
 
+        Parameters
+        ----------
+        to_DF : bool
+                Serves as a switch for converting the output extract data to a Data Frame.
+
         '''
         
         self.extract_links()
@@ -107,10 +112,7 @@ class PeriodicTableScraper(Scraper):
         else:
             pass
 
-root = "https://pubchem.ncbi.nlm.nih.gov/periodic-table/#view=list"
-features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}
-scraper = PeriodicTableScraper(n=5, root=root, list=[], features=features)
-scraper.extract_data(to_DF=True)
+
 
 
 

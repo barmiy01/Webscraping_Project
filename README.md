@@ -21,16 +21,24 @@ Implementing python libraries such as selenium and pandas, a database of element
 * Open the desired website containing information on the elements or compound.
 
 * Extract specific information on the attributes of the element or compound.
-    * To do this, the python codes ```OQMD_Database_scraper.py``` and ```periodic_table.py``` utilized. These codes contain the functions ```get_elements()``` and ```get_compounds(n)```  that carry out the extraction of elements and compounds data respectively.
-    * Specifically, ```get_compounds(n)``` and ```get_elements(n)``` depends on the parameter `n`. For ```get_compounds```, `n` is 
-    an integer that defines the number of pages to extract data from while `n` in ```get_elements(n)``` defines the number of elements to extract data from. In this case data from 60 elements where extracted.
+    * To do this, the python codes ```OQMD_new_version.py``` and ```periodic_table_new.py``` utilized. Within this code, a scraper class has been defined with the following attributes:
+    * `n` whose definition depends on the code being executed. For ```OQMD_new_version```, `n` is
+    an integer that defines the number of pages to extract data from while `n` in ```periodic_table_new.py``` defines the number of elements to extract data from. In this case data from 60 elements where extracted.
+    * `root` defines the target url where data is being extracted.
+    * `features` initialises a dictionary with keys that define the necessary data to be extrach for ecah element or compound.
+    It takes either of these forms: ```features = {'Element_Name':[], 'Atomic_Number':[], 'Electronegativity':[], 'Boiling_Point':[]}``` or
+    ```features = {'Name':[], 'Spacegroup':[], 'Volume':[], 'Band_gap':[]}```
 
-* Convert the result into a dataframe for further processing
-    * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which was saved as a csv file.
+     These codes contain the function ```extract_data()```  that carry out the extraction of elements and compounds data.
+    * Specifically, ```extract_data(to_DF)``` depends on to_DF which only accepts boolean values. to_DF determines whether or not the data
+    will be converted into a Data Frame.
+
+* Convert the result into a dataframe for further processing us
+    * Using Pandas, the extracted data was stored as a data frame using the ```convert_to_DF()``` function which depends on the following variables: ```data_name```, ```file_out```, ```to_csv```.
 
 * Clean the data
 
-    * For the extracted elements data, the boiling point of       elements was extracted in both &deg;C and Kelvin(K) with the boiling point in &deg;C within parentheses. For consistency, we delete all values in parentheses leaving values in K. To do this, we import the module ```regex``` and implement the following code :
+    * For the extracted elements data, the boiling point of  elements was extracted in both &deg;C and Kelvin(K) with the boiling point in &deg;C within parentheses. For consistency, we delete all values in parentheses leaving values in K. To do this, we import the module ```regex``` and implement the following code :
 
          ```re.sub(r'\([^)]*\)', '', '[filename]')``` 
 
@@ -51,15 +59,15 @@ Specifically, the main python library used for the extraction of data was seleni
 
 1. Run the python code that extracts data from OQMD
 
-     ```$ python  OQMD_Database_scraper.py```
+     ```$ python OQMD_new_version.py```
 
 2. Run the code that extracts data from the periodic table
 
-    ```$ python periodic_table.py```
+    ```$ python periodic_table_new.py```
 
-3. The entire code be ran from the executable shell script file
+3. The entire code be ran from a python script using the flags -r or --root 
 
-    ```$ sh execute.sh```
+    ```$ python run_scraper.py -r  [insert URL]```
 
 
 
